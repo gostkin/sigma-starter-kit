@@ -1,0 +1,13 @@
+console
+compile
+test
+run
+test
+reload
+test
+reload
+test
+reload
+test
+quit
+cd ..
