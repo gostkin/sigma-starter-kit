@@ -3,22 +3,21 @@ name := "ergo"
 version := "1.9.1"
 scalaVersion := "2.12.8"
 
-resolvers +=  Resolver.bintrayRepo("hseeberger", "maven")
+//resolvers +=  Resolver.bintrayRepo("hseeberger", "maven")
 resolvers ++= Seq(
-  "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
+  //"Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
   "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/",
   "SonaType" at "https://oss.sonatype.org/content/groups/public",
   "Typesafe maven releases" at "http://repo.typesafe.com/typesafe/maven-releases/")
 homepage := Some(url("http://ergoplatform.org/"))
 licenses := Seq("CC0" -> url("https://creativecommons.org/publicdomain/zero/1.0/legalcode"))
-/*pomExtra :=
+pomExtra :=
   <dependency>
     <groupId>org.scorexfoundation</groupId>
     <artifactId>sigma-state</artifactId>
     <version>v2.0-25427b6b-SNAPSHOT</version>
-    <type>test-jar</type>
     <scope>test</scope>
-  </dependency>*/
+  </dependency>
 
 val scorexVersion = "2.0.0-RC3"
 val sigmastate = "org.scorexfoundation" %% "sigma-state" % "v2.0-25427b6b-SNAPSHOT"
