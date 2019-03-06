@@ -1,5 +1,5 @@
 organization := "org.ergoplatform"
-name := "ergo"
+name := "sample-module"
 version := "1.9.1"
 scalaVersion := "2.12.8"
 
@@ -8,19 +8,17 @@ resolvers ++= Seq(
   //"Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
   "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/",
   "SonaType" at "https://oss.sonatype.org/content/groups/public",
-  "Typesafe maven releases" at "http://repo.typesafe.com/typesafe/maven-releases/")
+  "Typesafe maven releases" at "http://repo.typesafe.com/typesafe/maven-releases/",
+  "Local repository" at "/home/gostkin/.ivy2/local/"
+)
+
+resolvers += "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.ivy2/local"
+
 homepage := Some(url("http://ergoplatform.org/"))
 licenses := Seq("CC0" -> url("https://creativecommons.org/publicdomain/zero/1.0/legalcode"))
-pomExtra :=
-  <dependency>
-    <groupId>org.scorexfoundation</groupId>
-    <artifactId>sigma-state</artifactId>
-    <version>v2.0-25427b6b-SNAPSHOT</version>
-    <scope>test</scope>
-  </dependency>
 
 val scorexVersion = "2.0.0-RC3"
-val sigmastate = "org.scorexfoundation" %% "sigma-state" % "v2.0-25427b6b-SNAPSHOT"
+val sigmastate = "org.scorexfoundation" %% "sigma-state" % "228.8.8"
 
 libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-async" % "0.9.7",
@@ -37,20 +35,12 @@ libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.0.+" % "test",
   "org.scalatest" %% "scalatest" % "3.0.5" % "test",
   "org.scalacheck" %% "scalacheck" % "1.14.+" % "test",
-/*
-  ("org.scorexfoundation" %% "sigma-state" % "master-5f01afb6-SNAPSHOT" % "test")
-*/
-  ("org.scorexfoundation" %% "sigma-state" % "v2.0-25427b6b-SNAPSHOT")
-    .exclude("ch.qos.logback", "logback-classic")
-    .exclude("org.scorexfoundation", "scrypto"),
-  /*("org.scorexfoundation" %% "sigma-state" % "v2.0-25427b6b-SNAPSHOT" % Test).classifier("tests")
-    .exclude("ch.qos.logback", "logback-classic")
-    .exclude("org.scorexfoundation", "scrypto"),*/
+  "org.ergoplatform" %% "ergo" % "1.9.1",
+  sigmastate % "compile->compile;test->test",
   "com.typesafe.akka" %% "akka-testkit" % "2.5.+" % "test",
   "com.typesafe.akka" %% "akka-http-testkit" % "10.+" % "test",
   "org.asynchttpclient" % "async-http-client" % "2.6.+" % "test",
-  "com.fasterxml.jackson.dataformat" % "jackson-dataformat-properties" % "2.9.2" % "test"/*,
-  sigma % Test*/
+  "com.fasterxml.jackson.dataformat" % "jackson-dataformat-properties" % "2.9.2" % "test",
 )
 
 fork := true
@@ -80,10 +70,3 @@ val opts = Seq(
 // -J prefix is required by the bash script
 javaOptions in run ++= opts
 scalacOptions ++= Seq("-Xfatal-warnings", "-feature", "-deprecation")
-/*
-
-lazy val ergo = (project in file("."))
-  .settings(commonSettings,
-   libraryDependencies ++= Seq(sigma, (sigma % Test).classifier("tests")))
-
-*/

@@ -2,3 +2,7 @@
 .idea
 target
 project/target
+ergo.log
+scorex-errors.log
+scorex.log
+test-out/
